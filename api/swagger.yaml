@@ -1,0 +1,90 @@
+openapi: 3.0.0
+info:
+  title: Forensic Evidence API
+  description: Backend Node.js API to register and verify evidence on the blockchain.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/api/v1
+    description: Local Dev Server
+
+paths:
+  /evidence/register:
+    post:
+      summary: Upload and register new evidence.
+      description: Hashes the file, uploads to IPFS, and executes smart contract registration.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                evidenceFile:
+                  type: string
+                  format: binary
+                caseId:
+                  type: string
+                officerId:
+                  type: string
+                location:
+                  type: string
+                description:
+                  type: string
+      responses:
+        '200':
+          description: Evidence successfully registered.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transactionHash:
+                    type: string
+                  fileCid:
+                    type: string
+                  metadataCid:
+                    type: string
+        '400':
+          description: Bad request (missing file or metadata).
+        '500':
+          description: Internal server error or Blockchain failure.
+
+  /evidence/{id}/verify:
+    post:
+      summary: Verify the integrity of a local evidence file.
+      description: Re-hashes an uploaded file and checks it against the hash stored on the blockchain for a specific evidence ID.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: The on-chain Evidence ID.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                evidenceFile:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Verification response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  isVerified:
+                    type: boolean
+                  storedHash:
+                    type: string
+                  calculatedHash:
+                    type: string
+                  errorMessage:
+                    type: string
+        '404':
+          description: Evidence ID not found.
