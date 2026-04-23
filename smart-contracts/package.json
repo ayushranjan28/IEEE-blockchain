@@ -10,7 +10,12 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+<<<<<<< HEAD
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
     "hardhat": "^2.22.2"
+=======
+    "hardhat": "^2.22.2",
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0"
+>>>>>>> 988ed35b06322c5d6dd63e3b6a2a77de2a2eee8d
   }
 }
