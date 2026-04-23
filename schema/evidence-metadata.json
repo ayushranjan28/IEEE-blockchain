@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Forensic Evidence Metadata",
+  "description": "Standardized schema for forensic evidence data stored on IPFS",
+  "type": "object",
+  "properties": {
+    "caseId": {
+      "description": "The unique identifier for the police case.",
+      "type": "string"
+    },
+    "officerId": {
+      "description": "Badge number or ID of the registering officer.",
+      "type": "string"
+    },
+    "registrationTimestamp": {
+      "description": "ISO-8601 timestamp of when the evidence was acquired.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "location": {
+      "description": "GPS coordinates or description of where the evidence was found.",
+      "type": "string"
+    },
+    "description": {
+      "description": "Brief description of the evidence item.",
+      "type": "string"
+    },
+    "fileCid": {
+      "description": "The IPFS Content Identifier (CID) for the actual evidence file.",
+      "type": "string"
+    },
+    "fileMimeType": {
+      "description": "MIME type of the evidence file (e.g., image/jpeg).",
+      "type": "string"
+    }
+  },
+  "required": ["caseId", "officerId", "registrationTimestamp", "fileCid", "fileMimeType"]
+}
