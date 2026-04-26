@@ -45,7 +45,7 @@ app.use(errorHandler);
 // ── Start ──────────────────────────────────────────────────────────────────
 function start() {
   try {
-    blockchain.init(); // connects provider + signer + contract
+    // blockchain services are initialized on module load
 
     app.listen(PORT, () => {
       console.log(`\n🚀  IEEE Evidence API  →  http://localhost:${PORT}`);
